@@ -1,0 +1,106 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: system-ui, Meiryo, sans-serif, Arial;
+  user-select: none;
+  -webkit-user-select: none;
+}
+body {
+  max-width: 30rem;
+  margin: auto;
+}
+@font-face {
+  font-display: block;
+  font-family: "Material Icons";
+  font-style: normal;
+  font-weight: 400;
+  src: local("Material Icons"), local("MaterialIcons-Regular"),
+    url(/MaterialIcons-Regular.woff2) format("woff2");
+}
+.material-icons {
+  font-family: "Material Icons";
+  font-weight: normal;
+  font-style: normal;
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  -moz-osx-font-smoothing: grayscale;
+}
+.root::before {
+  display: none;
+  font-family: "Material Icons";
+}
+.hidden {
+  display: none;
+}
+.item {
+  border-bottom: 0.125rem solid #cccccc;
+  margin: 1rem;
+}
+.item .title {
+  font-weight: bold;
+  color: #333333;
+}
+.item .body {
+  display: flex;
+  justify-content: space-between;
+}
+.item .body .otp {
+  font-size: 2rem;
+  color: #3673d7;
+  user-select: text;
+}
+.item .body .qrcode,
+.item .body .delete {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 2rem;
+  color: #666666;
+}
+
+form {
+  display: flex;
+  margin: 1rem;
+}
+
+label {
+  font-size: 0.75rem;
+}
+
+input[type="text"] {
+  width: 10rem;
+  height: 1.25rem;
+}
+input[name="otp"] {
+  text-transform: uppercase;
+}
+
+input[type="submit"] {
+  background: #3673d7;
+  color: #ffffff;
+  font-weight: bold;
+  border-radius: 0.2rem;
+  font-size: 1rem;
+  cursor: pointer;
+  border: none;
+  padding: 0.5rem 0.75rem;
+  margin: 0.5rem;
+  box-shadow: 0 0 0.125rem #cccccc;
+}
+input[type="submit"]:hover {
+  background: #1e63d3;
+  box-shadow: 0 0 0.25rem #cccccc;
+}
+input[type="submit"]:active {
+  background: #3673d7;
+  box-shadow: none;
+}
