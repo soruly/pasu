@@ -3,18 +3,20 @@
 [![License](https://img.shields.io/github/license/soruly/2fa.svg?style=flat-square)](https://github.com/soruly/2fa/blob/master/LICENSE)
 [![GitHub Workflow Status](https://img.shields.io/github/workflow/status/soruly/2fa/Node.js%20Lint?style=flat-square)](https://github.com/soruly/2fa/actions)
 
-Self hosted 2-factor authentication PWA
+Self hosted 2-factor authenticator PWA
 
 ## Features
 
+- 2FA authenticator hosted on web
+- Allow others to access the OTP of your accounts
 - Installable PWA
-- Share your OTP to others, like colleagues at work
 - (TBC) Display timeout indicator
 - (TBC) Scan QR Code instead of manual input
 - (TBC) Show QR Code for copying to other devices
 
 **Warning**
 
+**It is dangerous to host 2FA authenticators on cloud.**
 This PWA is not secured by any password. Everyone is able to access your OTP.
 The author does not bear any losses caused by this app.
 
