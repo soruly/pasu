@@ -1,16 +1,22 @@
 # 2FA
 
 [![License](https://img.shields.io/github/license/soruly/2fa.svg?style=flat-square)](https://github.com/soruly/2fa/blob/master/LICENSE)
-[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/soruly/2fa/Docker%20Image%20CI?style=flat-square)](https://github.com/soruly/2fa/actions)
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/soruly/2fa/Node.js%20Lint?style=flat-square)](https://github.com/soruly/2fa/actions)
 
 Self hosted 2-factor authentication PWA
 
 ## Features
 
 - Installable PWA
+- Share your OTP to others, like colleagues at work
 - (TBC) Display timeout indicator
 - (TBC) Scan QR Code instead of manual input
 - (TBC) Show QR Code for copying to other devices
+
+**Warning**
+
+This PWA is not secured by any password. Everyone is able to access your OTP.
+The author does not bear any losses caused by this app.
 
 ## Getting Started
 
