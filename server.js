@@ -2,6 +2,7 @@ import "dotenv/config.js";
 import fs from "fs-extra";
 import path from "path";
 import crypto from "crypto";
+import { performance } from "perf_hooks";
 import express from "express";
 import rateLimit from "express-rate-limit";
 import getIpInfo from "./src/get-ip-info.js";
@@ -57,6 +58,22 @@ app.use(
     windowMs: 60 * 1000, // per 1 minute
   })
 );
+
+app.use((req, res, next) => {
+  const startTime = performance.now();
+  console.log("=>", new Date().toISOString(), req.ip, req.path);
+  res.on("finish", () => {
+    console.log(
+      "<=",
+      new Date().toISOString(),
+      req.ip,
+      req.path,
+      res.statusCode,
+      `${(performance.now() - startTime).toFixed(0)}ms`
+    );
+  });
+  next();
+});
 
 app.get(/[^\/]+\.[^\/]+$/, express.static("./static", { maxAge: 1000 * 60 * 60 * 24 }));
 
