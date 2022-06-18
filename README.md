@@ -1,23 +1,24 @@
-# 2FA
+# pasu
 
-[![License](https://img.shields.io/github/license/soruly/2fa.svg?style=flat-square)](https://github.com/soruly/2fa/blob/master/LICENSE)
-[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/soruly/2fa/Node.js%20Lint?style=flat-square)](https://github.com/soruly/2fa/actions)
+[![License](https://img.shields.io/github/license/soruly/pasu.svg?style=flat-square)](https://github.com/soruly/pasu/blob/master/LICENSE)
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/soruly/pasu/Node.js%20Lint?style=flat-square)](https://github.com/soruly/pasu/actions)
 
 Self hosted 2-factor authenticator PWA
 
 ## Features
 
 - 2FA authenticator hosted on web
-- Allow others to access the OTP of your accounts
 - Installable PWA
-- (TBC) Display timeout indicator
-- (TBC) Scan QR Code instead of manual input
-- (TBC) Show QR Code for copying to other devices
+- Allow others to access the OTP of your accounts
+- or, Secured by FIDO2 (WebAuthn)
+- User-Agent block list
+- IP block list
+- Codes are generated on server side and push to all clients via server-sent events
 
 **Warning**
 
 **It is dangerous to host 2FA authenticators on cloud.**
-This PWA is not secured by any password. Everyone is able to access your OTP.
+This PWA is not secured by any password by default. Everyone is able to access your OTP.
 The author does not bear any losses caused by this app.
 
 ## Getting Started
@@ -25,8 +26,8 @@ The author does not bear any losses caused by this app.
 Prerequisites: nodejs >= 16
 
 ```
-git clone https://github.com/soruly/2fa.git
-cd 2fa
+git clone https://github.com/soruly/pasu.git
+cd pasu
 npm install
 node server.js
 ```
@@ -42,6 +43,7 @@ location / {
   proxy_set_header Connection upgrade;
   proxy_buffering off;
   proxy_cache off;
+  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
   proxy_pass http://127.0.0.1:3000;
 }
 ```
@@ -52,9 +54,18 @@ location / {
 - Edit `.env` as you need
 
 ```
-SERVER_PORT # (optional) Default: 3000
-SERVER_ADDR # (optional) Default: 127.0.0.1
+SERVER_PORT=3000        # (optional) Default: 3000
+SERVER_ADDR=127.0.0.1   # (optional) Default: 127.0.0.1
+SERVER_NAME=localhost   # the app doesn't work without HTTPS, you need a valid hostname
+#BLACKLIST_UA=Bot|MSIE|Bytespider|Baidu|Sogou|FB_AN|FB_IOS|FB_IAB|Instagram
+#WHITELIST_COUNTRY=ZZ|HK|TW
+#GEO_LITE_COUNTRY_PATH=/etc/GeoIP/GeoLite2-Country.mmdb
+#GEO_LITE_ASN_PATH=/etc/GeoIP/GeoLite2-ASN.mmdb
+#ENABLE_FIDO2=1          # when ENABLE_FIDO2 is not set (default), the server is public
+#ALLOW_REGISTER=1        # when ALLOW_REGISTER is not set (default), no new devices can be registered
 ```
+
+To register a new device with WebAuthn, turn on both `ENABLE_FIDO2` and `ALLOW_REGISTER`, then visit `https://your.server/reg` to continue. It is suggested you turn off ALLOW_REGISTER when not needed.
 
 ### Run by pm2
 
