@@ -41,14 +41,14 @@ app.locals.f2l =
   new Fido2Lib({
     timeout: 60000,
     rpId: SERVER_NAME,
-    rpName: "ACME",
+    rpName: SERVER_NAME,
     rpIcon: `https://${SERVER_NAME}/favicon.png`,
     challengeSize: 128,
     attestation: "direct",
-    cryptoParams: [-7],
+    cryptoParams: [-7, -35, -36, -257, -258, -259, -37, -38, -39, -8],
     // authenticatorAttachment: "cross-platform",
-    // authenticatorRequireResidentKey: false,
-    authenticatorUserVerification: "preferred",
+    authenticatorRequireResidentKey: false,
+    authenticatorUserVerification: "discouraged",
   });
 
 app.use((req, res, next) => {
