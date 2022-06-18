@@ -4,8 +4,14 @@ import path from "path";
 import crypto from "crypto";
 import express from "express";
 import rateLimit from "express-rate-limit";
+import getIpInfo from "./src/get-ip-info.js";
 
-const { SERVER_ADDR = "0.0.0.0", SERVER_PORT = 3000, BLACKLIST_UA } = process.env;
+const {
+  SERVER_ADDR = "0.0.0.0",
+  SERVER_PORT = 3000,
+  BLACKLIST_UA,
+  WHITELIST_COUNTRY,
+} = process.env;
 
 const app = express();
 
@@ -17,6 +23,11 @@ app.set("views", path.resolve("."));
 
 app.use((req, res, next) => {
   if (BLACKLIST_UA && req.headers["user-agent"]?.match(new RegExp(`(${BLACKLIST_UA})`, "i")))
+    return;
+  const { ASN, country } = getIpInfo(req.ip);
+  res.locals.ASN = ASN;
+  res.locals.country = country;
+  if (WHITELIST_COUNTRY && !WHITELIST_COUNTRY.split("|").includes(res.locals.country.isoCode))
     return;
   next();
 });
