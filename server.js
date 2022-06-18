@@ -23,11 +23,40 @@ app.set("view engine", "ejs");
 app.set("views", path.resolve("."));
 
 app.use((req, res, next) => {
-  if (BLACKLIST_UA && req.headers["user-agent"]?.match(new RegExp(`(${BLACKLIST_UA})`, "i")))
-    return;
   const { ASN, country } = getIpInfo(req.ip);
   res.locals.ASN = ASN;
   res.locals.country = country;
+  next();
+});
+
+app.use((req, res, next) => {
+  const startTime = performance.now();
+  console.log(
+    "=>",
+    new Date().toISOString(),
+    req.ip,
+    res.locals.country.isoCode,
+    res.locals.ASN.autonomousSystemNumber,
+    req.path
+  );
+  res.on("finish", () => {
+    console.log(
+      "<=",
+      new Date().toISOString(),
+      req.ip,
+      res.locals.country.isoCode,
+      res.locals.ASN.autonomousSystemNumber,
+      req.path,
+      res.statusCode,
+      `${(performance.now() - startTime).toFixed(0)}ms`
+    );
+  });
+  next();
+});
+
+app.use((req, res, next) => {
+  if (BLACKLIST_UA && req.headers["user-agent"]?.match(new RegExp(`(${BLACKLIST_UA})`, "i")))
+    return;
   if (WHITELIST_COUNTRY && !WHITELIST_COUNTRY.split("|").includes(res.locals.country.isoCode))
     return;
   next();
@@ -58,22 +87,6 @@ app.use(
     windowMs: 60 * 1000, // per 1 minute
   })
 );
-
-app.use((req, res, next) => {
-  const startTime = performance.now();
-  console.log("=>", new Date().toISOString(), req.ip, req.path);
-  res.on("finish", () => {
-    console.log(
-      "<=",
-      new Date().toISOString(),
-      req.ip,
-      req.path,
-      res.statusCode,
-      `${(performance.now() - startTime).toFixed(0)}ms`
-    );
-  });
-  next();
-});
 
 app.get(/[^\/]+\.[^\/]+$/, express.static("./static", { maxAge: 1000 * 60 * 60 * 24 }));
 
