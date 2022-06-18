@@ -45,12 +45,12 @@ document.querySelector("form").onsubmit = async (e) => {
 
 for (const e of document.querySelectorAll(".delete")) {
   e.addEventListener("click", async (e) => {
-    if (confirm(`Delete ${e.target.parentElement.id} ?`)) {
+    if (confirm(`Delete ${e.target.parentElement.parentElement.id} ?`)) {
       const res = await fetch("/", {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          name: e.target.parentElement.id,
+          name: e.target.parentElement.parentElement.id,
         }),
       });
       if (res.status === 204) window.location.reload();
