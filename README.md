@@ -1,24 +1,28 @@
 # pasu
 
+Self-hosted [TOTP](https://en.wikipedia.org/wiki/Time-based_one-time_password) authenticator PWA with [FIDO2](https://en.wikipedia.org/wiki/FIDO2_Project) ([WebAuthn](https://en.wikipedia.org/wiki/WebAuthn))
+
 [![License](https://img.shields.io/github/license/soruly/pasu.svg?style=flat-square)](https://github.com/soruly/pasu/blob/master/LICENSE)
 [![GitHub Workflow Status](https://img.shields.io/github/workflow/status/soruly/pasu/Node.js%20Lint?style=flat-square)](https://github.com/soruly/pasu/actions)
 
-Self hosted 2-factor authenticator PWA
+![](https://images.plurk.com/3TaPd8iaPPEI6OhZ9sAJfF.png)
 
 ## Features
 
-- 2FA authenticator hosted on web
+- 2FA secrets stored in your own server instead of your own device
+- Codes are generated on server side and push to all clients via server-sent events
 - Installable PWA
 - Allow others to access the OTP of your accounts
 - or, Secured by FIDO2 (WebAuthn)
 - User-Agent block list
 - IP block list
-- Codes are generated on server side and push to all clients via server-sent events
+
+Notes: FIDO2 (WebAuthn) is not enabled in demo server
 
 **Warning**
 
-**It is dangerous to host 2FA authenticators on cloud.**
-This PWA is not secured by any password by default. Everyone is able to access your OTP.
+**This PWA is open to public by default.**\
+Everyone is able to access your OTP. Do not use it for any serious businesses.\
 The author does not bear any losses caused by this app.
 
 ## Getting Started
