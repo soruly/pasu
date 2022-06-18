@@ -1,6 +1,20 @@
 const events = new EventSource("/");
 
-events.onmessage = (event) => {
+let animation = null;
+
+events.onmessage = async (event) => {
+  animation && animation.pause();
+  animation = document.querySelector(".counter").animate(
+    [
+      { transform: `scaleX(1)`, transformOrigin: "left" },
+      { transform: `scaleX(0)`, transformOrigin: "left" },
+    ],
+    {
+      duration: animation ? 30000 : Math.ceil(Date.now() / 30000) * 30000 - Date.now(),
+      iterations: 1,
+      easing: "linear",
+    }
+  );
   for (const { name, otp } of JSON.parse(event.data)) {
     document.querySelector(`#${name} .otp`).innerText = otp;
   }
