@@ -6,6 +6,15 @@ events.onmessage = (event) => {
   }
 };
 
+document.querySelector(".overlay")?.addEventListener("click", (e) => {
+  if (e.target.parentElement === document.body)
+    document.querySelector(".overlay").classList.add("hidden");
+});
+
+document.querySelector(".add")?.addEventListener("click", (e) => {
+  document.querySelector(".overlay").classList.remove("hidden");
+});
+
 document.querySelector("form").onsubmit = async (e) => {
   e.preventDefault();
   const res = await fetch("/", {

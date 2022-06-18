@@ -7,8 +7,14 @@ body {
   -webkit-user-select: none;
 }
 body {
-  max-width: 30rem;
-  margin: auto;
+  max-width: 25rem;
+  margin: 0 auto;
+  background-image: url(/bg.jpg);
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: top center;
+  font-family: sans-serif;
+  font-size: 1rem;
 }
 @font-face {
   font-display: block;
@@ -38,16 +44,59 @@ body {
   display: none;
   font-family: "Material Icons";
 }
-.hidden {
-  display: none;
+.nav {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(64, 0, 255, 0.25);
+  backdrop-filter: blur(0.5rem) saturate(2);
+}
+.nav .title {
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  line-height: 1rem;
+  margin: 0 1rem 0 1rem;
+  color: rgba(255, 255, 255, 1);
+  text-shadow: 0 0 0.125rem rgba(255, 255, 255, 1);
+}
+.nav .add {
+  font-size: 2rem;
+  line-height: 3rem;
+  height: 3rem;
+  width: 3rem;
+  text-align: center;
+  color: rgba(255, 255, 255, 1);
+  cursor: pointer;
+  transition: all 300ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+.nav .add:hover {
+  text-shadow: 0 0 0.25rem rgba(255, 255, 255, 1);
+}
+.nav .add:active {
+  text-shadow: 0 0 0.25rem rgba(192, 128, 255, 1);
+}
+.list {
+  padding: 3rem 0 0 0;
+  background-color: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(0.5rem) saturate(2);
+  box-shadow: 0 0 1rem rgba(192, 128, 255, 0.75);
 }
 .item {
-  border-bottom: 0.125rem solid #cccccc;
-  margin: 1rem;
+  border-bottom: 0.0625rem solid #cccccc;
+  padding: 1rem;
 }
 .item .title {
-  font-weight: bold;
-  color: #333333;
+  font-size: 1rem;
+  letter-spacing: 0.0625rem;
+  height: 1.5rem;
+  line-height: 1.5rem;
+  color: rgba(32, 32, 128, 1);
 }
 .item .body {
   display: flex;
@@ -57,50 +106,99 @@ body {
   font-size: 2rem;
   color: #3673d7;
   user-select: text;
+  height: 2.5rem;
+  line-height: 2.5rem;
+  letter-spacing: 0.125rem;
 }
-.item .body .qrcode,
 .item .body .delete {
   display: flex;
   align-items: center;
   cursor: pointer;
   font-size: 2rem;
-  color: #666666;
+  color: rgba(192, 160, 255, 1);
 }
 
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(0.5rem) saturate(0.5);
+  transition: all 300ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  opacity: 1;
+  pointer-events: auto;
+}
+.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
 form {
   display: flex;
-  margin: 1rem;
+  flex-direction: column;
+  padding: 0.5rem;
+  background-color: rgba(255, 255, 255, 0.75);
+  width: 20rem;
+  height: 12rem;
+  align-items: stretch;
+  justify-content: space-between;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 1rem rgba(192, 128, 255, 0.75);
 }
 
 label {
+  color: rgba(32, 32, 128, 1);
   font-size: 0.75rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1rem;
 }
 
 input[type="text"] {
-  width: 10rem;
-  height: 1.25rem;
+  width: 14rem;
+  height: 1.5rem;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  padding: 0 0.25rem;
+  transition: all 300ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  border: 1px solid rgba(192, 160, 255, 1);
+  border-radius: 0.25rem;
+  outline: 0;
+}
+input[type="text"]:hover {
+  box-shadow: 0 0 0.25rem rgba(192, 160, 255, 1);
+}
+input[type="text"]:focus {
+  box-shadow: 0 0 0.5rem rgba(192, 160, 255, 1);
 }
 input[name="otp"] {
   text-transform: uppercase;
+  font-family: monospace;
 }
 
 input[type="submit"] {
-  background: #3673d7;
-  color: #ffffff;
+  font-weight: normal;
+  font-family: system-ui;
+  background: rgba(192, 160, 255, 1);
+  color: rgba(255, 255, 255, 1);
   font-weight: bold;
-  border-radius: 0.2rem;
+  border-radius: 0.25rem;
   font-size: 1rem;
   cursor: pointer;
   border: none;
-  padding: 0.5rem 0.75rem;
-  margin: 0.5rem;
-  box-shadow: 0 0 0.125rem #cccccc;
+  padding: 0.75rem 0.75rem;
+  margin: 1rem;
+  transition: all 300ms cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 input[type="submit"]:hover {
-  background: #1e63d3;
-  box-shadow: 0 0 0.25rem #cccccc;
+  text-shadow: 0 0 0.25rem rgba(255, 255, 255, 1);
+  box-shadow: 0 0 0.25rem rgba(192, 160, 255, 1);
 }
 input[type="submit"]:active {
-  background: #3673d7;
   box-shadow: none;
+  text-shadow: none;
 }
