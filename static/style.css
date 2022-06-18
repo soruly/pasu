@@ -49,27 +49,30 @@ body {
   left: 0;
   right: 0;
   top: 0;
-  height: 3rem;
+  height: 4rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: rgba(64, 0, 255, 0.25);
+  background-color: rgba(64, 64, 255, 0.5);
   backdrop-filter: blur(0.5rem) saturate(2);
+  -webkit-backdrop-filter: blur(0.5rem) saturate(2);
+  border-bottom: 0.0625rem solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 0.25rem rgba(0, 0, 0, 1);
 }
 .nav .title {
   display: flex;
   align-items: center;
-  font-size: 1rem;
+  font-size: 1.25rem;
   line-height: 1rem;
   margin: 0 1rem 0 1rem;
   color: rgba(255, 255, 255, 1);
-  text-shadow: 0 0 0.125rem rgba(255, 255, 255, 1);
+  text-shadow: 0 0 0.25rem rgba(255, 255, 255, 1);
 }
 .nav .add {
   font-size: 2rem;
-  line-height: 3rem;
-  height: 3rem;
-  width: 3rem;
+  line-height: 4rem;
+  height: 4rem;
+  width: 4rem;
   text-align: center;
   color: rgba(255, 255, 255, 1);
   cursor: pointer;
@@ -79,16 +82,21 @@ body {
   text-shadow: 0 0 0.25rem rgba(255, 255, 255, 1);
 }
 .nav .add:active {
-  text-shadow: 0 0 0.25rem rgba(192, 128, 255, 1);
+  text-shadow: 0 0 0.25rem rgba(160, 160, 255, 1);
 }
 .list {
-  padding: 3rem 0 0 0;
+  margin: 5rem 0 2rem 0;
   background-color: rgba(255, 255, 255, 0.75);
   backdrop-filter: blur(0.5rem) saturate(2);
-  box-shadow: 0 0 1rem rgba(192, 128, 255, 0.75);
+  -webkit-backdrop-filter: blur(0.5rem) saturate(2);
+  box-shadow: 0 0 1rem rgba(160, 160, 255, 0.75);
+  border-radius: 0.5rem;
+}
+.item:first-child {
+  border-top: 0;
 }
 .item {
-  border-bottom: 0.0625rem solid #cccccc;
+  border-top: 0.0625rem solid rgba(192, 192, 255, 1);
   padding: 1rem;
 }
 .item .title {
@@ -96,7 +104,7 @@ body {
   letter-spacing: 0.0625rem;
   height: 1.5rem;
   line-height: 1.5rem;
-  color: rgba(32, 32, 128, 1);
+  color: rgba(64, 64, 255, 1);
 }
 .item .body {
   display: flex;
@@ -104,7 +112,7 @@ body {
 }
 .item .body .otp {
   font-size: 2rem;
-  color: #3673d7;
+  color: rgba(64, 64, 64, 1);
   user-select: text;
   height: 2.5rem;
   line-height: 2.5rem;
@@ -115,7 +123,14 @@ body {
   align-items: center;
   cursor: pointer;
   font-size: 2rem;
-  color: rgba(192, 160, 255, 1);
+  color: rgba(160, 160, 255, 1);
+  transition: all 300ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+.item .body .delete:hover {
+  text-shadow: 0 0 0.25rem rgba(160, 160, 255, 1);
+}
+.item .body .delete:active {
+  text-shadow: none;
 }
 
 .overlay {
@@ -128,6 +143,7 @@ body {
   align-items: center;
   justify-content: center;
   backdrop-filter: blur(0.5rem) saturate(0.5);
+  -webkit-backdrop-filter: blur(0.5rem) saturate(0.5);
   transition: all 300ms cubic-bezier(0.22, 0.61, 0.36, 1);
   opacity: 1;
   pointer-events: auto;
@@ -146,7 +162,7 @@ form {
   align-items: stretch;
   justify-content: space-between;
   border-radius: 0.5rem;
-  box-shadow: 0 0 1rem rgba(192, 128, 255, 0.75);
+  box-shadow: 0 0 1rem rgba(160, 160, 255, 0.75);
 }
 
 label {
@@ -165,15 +181,15 @@ input[type="text"] {
   line-height: 1.5rem;
   padding: 0 0.25rem;
   transition: all 300ms cubic-bezier(0.22, 0.61, 0.36, 1);
-  border: 1px solid rgba(192, 160, 255, 1);
+  border: 1px solid rgba(160, 160, 255, 1);
   border-radius: 0.25rem;
   outline: 0;
 }
 input[type="text"]:hover {
-  box-shadow: 0 0 0.25rem rgba(192, 160, 255, 1);
+  box-shadow: 0 0 0.25rem rgba(160, 160, 255, 1);
 }
 input[type="text"]:focus {
-  box-shadow: 0 0 0.5rem rgba(192, 160, 255, 1);
+  box-shadow: 0 0 0.5rem rgba(160, 160, 255, 1);
 }
 input[name="otp"] {
   text-transform: uppercase;
@@ -183,7 +199,7 @@ input[name="otp"] {
 input[type="submit"] {
   font-weight: normal;
   font-family: system-ui;
-  background: rgba(192, 160, 255, 1);
+  background: rgba(160, 160, 255, 1);
   color: rgba(255, 255, 255, 1);
   font-weight: bold;
   border-radius: 0.25rem;
@@ -196,7 +212,7 @@ input[type="submit"] {
 }
 input[type="submit"]:hover {
   text-shadow: 0 0 0.25rem rgba(255, 255, 255, 1);
-  box-shadow: 0 0 0.25rem rgba(192, 160, 255, 1);
+  box-shadow: 0 0 0.25rem rgba(160, 160, 255, 1);
 }
 input[type="submit"]:active {
   box-shadow: none;
