@@ -135,6 +135,9 @@ app.post("/", (req, res) => {
   ) {
     return res.status(403);
   }
+  if (!req.body.name || !req.body.otp) return res.sendStatus(400);
+  if (!req.body.name.match(/[a-zA-Z][a-zA-Z0-9]+/)) return res.sendStatus(400);
+  if (!req.body.otp.match(/[a-zA-Z0-9]{16,}/)) return res.sendStatus(400);
   fs.copyFileSync("data/latest.json", `data/${Date.now()}.json`);
   fs.writeFileSync(
     "data/latest.json",

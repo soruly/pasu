@@ -40,11 +40,25 @@
     <form method="post" action="/" enctype="application/x-www-form-urlencoded">
       <label>
         Name
-        <input name="name" type="text" required />
+        <input
+          name="name"
+          type="text"
+          required
+          minlength="2"
+          pattern="[a-zA-Z][a-zA-Z0-9]+"
+          placeholder="(alphanumeric characters only)"
+        />
       </label>
       <label>
         Secret
-        <input name="otp" type="text" required minlength="16" />
+        <input
+          name="otp"
+          type="text"
+          required
+          minlength="16"
+          pattern="[a-zA-Z0-9]{16,}"
+          placeholder="(remove spaces if any)"
+        />
       </label>
       <input type="submit" />
     </form>
