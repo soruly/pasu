@@ -1,7 +1,7 @@
 {
-  "name": "2fa.soruly.com",
+  "name": "pasu",
   "version": "1.0.0",
-  "description": "Self-hosted 2FA app",
+  "description": "Self-hosted TOTP authenticator PWA with FIDO2 (WebAuthn)",
   "main": "server.js",
   "type": "module",
   "scripts": {
@@ -18,14 +18,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/soruly/2fa.git"
+    "url": "git+https://github.com/soruly/pasu.git"
   },
   "author": "soruly",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/soruly/2fa/issues"
+    "url": "https://github.com/soruly/pasu/issues"
   },
-  "homepage": "https://github.com/soruly/2fa#readme",
+  "homepage": "https://github.com/soruly/pasu#readme",
   "dependencies": {
     "@maxmind/geoip2-node": "^3.4.0",
     "cookie-parser": "^1.4.6",
