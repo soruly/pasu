@@ -17,26 +17,5 @@
   <link rel="apple-touch-icon" href="/favicon.png" />
   <link rel="stylesheet" href="/style.css" />
 
-  <% list.forEach(function(e){ %>
-  <div class="item" id="<%= e.name %>">
-    <div class="title"><%= e.name %></div>
-    <div class="body">
-      <div class="otp"><%= e.otp %></div>
-      <span class="delete material-icons">delete</span>
-    </div>
-  </div>
-  <% }); %>
-
-  <form method="post" action="/" enctype="application/x-www-form-urlencoded">
-    <label>
-      Name
-      <input name="name" type="text" required />
-    </label>
-    <label>
-      Secret
-      <input name="otp" type="text" required minlength="16" />
-    </label>
-    <input type="submit" />
-  </form>
-  <script src="client.js" defer></script>
+  <script src="/register.js" defer></script>
 </html>

@@ -5,14 +5,28 @@ import crypto from "crypto";
 import { performance } from "perf_hooks";
 import express from "express";
 import rateLimit from "express-rate-limit";
+import cookieParser from "cookie-parser";
+import { Fido2Lib } from "fido2-lib";
+
 import getIpInfo from "./src/get-ip-info.js";
+import getRegister from "./src/get-register.js";
+import postRegister from "./src/post-register.js";
+import getLogin from "./src/get-login.js";
+import postLogin from "./src/post-login.js";
 
 const {
   SERVER_ADDR = "0.0.0.0",
   SERVER_PORT = 3000,
+  SERVER_NAME,
   BLACKLIST_UA,
   WHITELIST_COUNTRY,
+  ENABLE_FIDO2,
+  ALLOW_REGISTER,
 } = process.env;
+
+if (!fs.existsSync("data/latest.json")) fs.outputFileSync("data/latest.json", JSON.stringify([]));
+fs.ensureDirSync("registered");
+fs.ensureDirSync("session");
 
 const app = express();
 
@@ -20,7 +34,22 @@ app.disable("x-powered-by");
 
 app.set("trust proxy", 1);
 app.set("view engine", "ejs");
-app.set("views", path.resolve("."));
+app.set("views", path.resolve("./view"));
+
+app.locals.f2l =
+  ENABLE_FIDO2 &&
+  new Fido2Lib({
+    timeout: 60000,
+    rpId: SERVER_NAME,
+    rpName: "ACME",
+    rpIcon: `https://${SERVER_NAME}/favicon.png`,
+    challengeSize: 128,
+    attestation: "direct",
+    cryptoParams: [-7],
+    // authenticatorAttachment: "cross-platform",
+    // authenticatorRequireResidentKey: false,
+    authenticatorUserVerification: "preferred",
+  });
 
 app.use((req, res, next) => {
   const { ASN, country } = getIpInfo(req.ip);
@@ -63,27 +92,11 @@ app.use((req, res, next) => {
 });
 
 app.use(express.json());
-
-app.use((req, res, next) => {
-  res.set("Access-Control-Allow-Origin", "*");
-  res.set("Access-Control-Allow-Methods", "GET, OPTIONS");
-  res.set("Referrer-Policy", "no-referrer");
-  res.set("X-Content-Type-Options", "nosniff");
-  res.set(
-    "Content-Security-Policy",
-    [
-      "default-src 'self'",
-      "base-uri 'none'",
-      "frame-ancestors 'none'",
-      "block-all-mixed-content",
-    ].join("; ")
-  );
-  next();
-});
+app.use(cookieParser());
 
 app.use(
   rateLimit({
-    max: 120, // 120 requests per IP address (per node.js process)
+    max: 600, // 600 requests per IP address (per node.js process)
     windowMs: 60 * 1000, // per 1 minute
   })
 );
@@ -91,6 +104,15 @@ app.use(
 app.get(/[^\/]+\.[^\/]+$/, express.static("./static", { maxAge: 1000 * 60 * 60 * 24 }));
 
 app.delete("/", (req, res) => {
+  if (
+    ENABLE_FIDO2 &&
+    !fs
+      .readdirSync("session")
+      .map((e) => e.replace(".json", ""))
+      .includes(req.cookies.session)
+  ) {
+    return res.status(403);
+  }
   fs.copyFileSync("data/latest.json", `data/${Date.now()}.json`);
   fs.writeFileSync(
     "data/latest.json",
@@ -104,6 +126,15 @@ app.delete("/", (req, res) => {
 });
 
 app.post("/", (req, res) => {
+  if (
+    ENABLE_FIDO2 &&
+    !fs
+      .readdirSync("session")
+      .map((e) => e.replace(".json", ""))
+      .includes(req.cookies.session)
+  ) {
+    return res.status(403);
+  }
   fs.copyFileSync("data/latest.json", `data/${Date.now()}.json`);
   fs.writeFileSync(
     "data/latest.json",
@@ -112,7 +143,42 @@ app.post("/", (req, res) => {
   return res.sendStatus(204);
 });
 
+app.get("/login", rateLimit({ max: 5, windowMs: 60 * 1000 }), getLogin);
+app.post("/login", rateLimit({ max: 5, windowMs: 60 * 1000 }), postLogin);
+
+app.get("/register", rateLimit({ max: 5, windowMs: 60 * 1000 }), getRegister);
+app.post("/register", rateLimit({ max: 5, windowMs: 60 * 1000 }), postRegister);
+
+app.get("/reg", async (req, res) => {
+  if (ENABLE_FIDO2 && ALLOW_REGISTER) return res.render("register");
+  return res.status(403).send("Registration disabled");
+});
+
 app.get("/", async (req, res) => {
+  res.set("Access-Control-Allow-Origin", "*");
+  res.set("Access-Control-Allow-Methods", "GET, OPTIONS");
+  res.set("Referrer-Policy", "no-referrer");
+  res.set("X-Content-Type-Options", "nosniff");
+  res.set(
+    "Content-Security-Policy",
+    [
+      "default-src 'self'",
+      "base-uri 'none'",
+      "frame-ancestors 'none'",
+      "block-all-mixed-content",
+    ].join("; ")
+  );
+
+  if (
+    ENABLE_FIDO2 &&
+    !fs
+      .readdirSync("session")
+      .map((e) => e.replace(".json", ""))
+      .includes(req.cookies.session)
+  ) {
+    return res.render("login", { ALLOW_REGISTER });
+  }
+
   if (req.headers.accept?.toLowerCase() === "text/event-stream") {
     res.set({
       "Cache-Control": "no-cache",
@@ -143,12 +209,10 @@ app.get("/", async (req, res) => {
   return res.render("index", {
     list: JSON.parse(fs.readFileSync("data/latest.json")).map(({ name, otp }) => ({
       name,
-      otp: getOtp(otp),
+      otp: "",
     })),
   });
 });
-
-if (!fs.existsSync("data/latest.json")) fs.outputFileSync("data/latest.json", JSON.stringify([]));
 
 app.listen(SERVER_PORT, SERVER_ADDR, () =>
   console.log(`Media server listening on ${SERVER_ADDR}:${SERVER_PORT}`)

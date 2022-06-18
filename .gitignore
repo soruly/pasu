@@ -62,3 +62,5 @@ typings/
 
 # local data storage
 data/
+registered/
+session/
