@@ -5,7 +5,7 @@ import crypto from "crypto";
 import express from "express";
 import rateLimit from "express-rate-limit";
 
-const { SERVER_ADDR = "0.0.0.0", SERVER_PORT = 3000 } = process.env;
+const { SERVER_ADDR = "0.0.0.0", SERVER_PORT = 3000, BLACKLIST_UA } = process.env;
 
 const app = express();
 
@@ -14,6 +14,12 @@ app.disable("x-powered-by");
 app.set("trust proxy", 1);
 app.set("view engine", "ejs");
 app.set("views", path.resolve("."));
+
+app.use((req, res, next) => {
+  if (BLACKLIST_UA && req.headers["user-agent"]?.match(new RegExp(`(${BLACKLIST_UA})`, "i")))
+    return;
+  next();
+});
 
 app.use(express.json());
 
