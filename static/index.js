@@ -10,12 +10,12 @@ events.onmessage = async (event) => {
       { transform: `scaleX(0)`, transformOrigin: "left" },
     ],
     {
-      duration: animation ? 30000 : Math.ceil(Date.now() / 30000) * 30000 - Date.now(),
+      duration: JSON.parse(event.data).nextUpdate,
       iterations: 1,
       easing: "linear",
     }
   );
-  for (const { name, otp } of JSON.parse(event.data)) {
+  for (const { name, otp } of JSON.parse(event.data).list) {
     document.querySelector(`#${name} .otp`).innerText = otp;
   }
 };

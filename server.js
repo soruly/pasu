@@ -192,12 +192,15 @@ app.get("/", async (req, res) => {
     res.write("retry: 1000\n\n");
     while (true) {
       res.write(
-        `data: ${JSON.stringify(
-          JSON.parse(fs.readFileSync("data/latest.json")).map(({ name, otp }) => ({
+        `data: ${JSON.stringify({
+          nextUpdate:
+            (Math.floor(Math.round(new Date().getTime() / 1000.0) / 30) + 1) * 30 * 1000 -
+            new Date().getTime(),
+          list: JSON.parse(fs.readFileSync("data/latest.json")).map(({ name, otp }) => ({
             name,
             otp: getOtp(otp),
-          }))
-        )}\n\n`
+          })),
+        })}\n\n`
       );
 
       await new Promise((resolve) =>
