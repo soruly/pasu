@@ -39,6 +39,6 @@ const base64ToArrayBuffer = (str) => Uint8Array.from(atob(str), (c) => c.charCod
     });
     if (res.status === 204) window.location.reload();
   } catch (e) {
-    document.body.innerText = e;
+    alert(e);
   }
 })();
