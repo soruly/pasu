@@ -155,7 +155,8 @@ app.post("/register", rateLimit({ max: 5, windowMs: 60 * 1000 }), postRegister);
 app.get("/reg", async (req, res) => {
   if (ENABLE_FIDO2 && ALLOW_REGISTER)
     return res.render("register", {
-      modifiedJS: Math.floor(fs.statSync("./static/register.js").mtimeMs).toString(36),
+      mtimeCSS: Math.floor(fs.statSync("./static/style.css").mtimeMs).toString(36),
+      mtimeJS: Math.floor(fs.statSync("./static/register.js").mtimeMs).toString(36),
     });
   return res.status(403).send("Registration disabled");
 });
@@ -183,7 +184,8 @@ app.get("/", async (req, res) => {
       .includes(req.cookies.session)
   ) {
     return res.render("login", {
-      modifiedJS: Math.floor(fs.statSync("./static/login.js").mtimeMs).toString(36),
+      mtimeCSS: Math.floor(fs.statSync("./static/style.css").mtimeMs).toString(36),
+      mtimeJS: Math.floor(fs.statSync("./static/login.js").mtimeMs).toString(36),
       ALLOW_REGISTER,
     });
   }
