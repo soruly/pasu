@@ -153,7 +153,10 @@ app.get("/register", rateLimit({ max: 5, windowMs: 60 * 1000 }), getRegister);
 app.post("/register", rateLimit({ max: 5, windowMs: 60 * 1000 }), postRegister);
 
 app.get("/reg", async (req, res) => {
-  if (ENABLE_FIDO2 && ALLOW_REGISTER) return res.render("register");
+  if (ENABLE_FIDO2 && ALLOW_REGISTER)
+    return res.render("register", {
+      modifiedJS: Math.floor(fs.statSync("./static/register.js").mtimeMs).toString(36),
+    });
   return res.status(403).send("Registration disabled");
 });
 
@@ -179,7 +182,10 @@ app.get("/", async (req, res) => {
       .map((e) => e.replace(".json", ""))
       .includes(req.cookies.session)
   ) {
-    return res.render("login", { ALLOW_REGISTER });
+    return res.render("login", {
+      modifiedJS: Math.floor(fs.statSync("./static/login.js").mtimeMs).toString(36),
+      ALLOW_REGISTER,
+    });
   }
 
   if (req.headers.accept?.toLowerCase() === "text/event-stream") {
@@ -213,6 +219,8 @@ app.get("/", async (req, res) => {
     }
   }
   return res.render("index", {
+    mtimeJS: Math.floor(fs.statSync("./static/index.js").mtimeMs).toString(36),
+    mtimeCSS: Math.floor(fs.statSync("./static/style.css").mtimeMs).toString(36),
     list: JSON.parse(fs.readFileSync("data/latest.json")).map(({ name, otp }) => ({
       name,
       otp: "",
