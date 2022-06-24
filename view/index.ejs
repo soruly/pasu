@@ -34,7 +34,12 @@
   <div class="counter"></div>
   <div class="nav">
     <div class="title">ソ瑠璃パス</div>
-    <span class="add material-icons">add</span>
+    <div>
+      <% if (ENABLE_FIDO2) { %>
+      <a href="/logout" class="logout material-icons">logout</a>
+      <% } %>
+      <span class="add material-icons">add</span>
+    </div>
   </div>
   <div class="overlay hidden">
     <form method="post" action="/" enctype="application/x-www-form-urlencoded">

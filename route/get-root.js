@@ -14,7 +14,6 @@ export default async (req, res) => {
     return res.render("login", {
       mtimeCSS: Math.floor(fs.statSync("./static/style.css").mtimeMs).toString(36),
       mtimeJS: Math.floor(fs.statSync("./static/login.js").mtimeMs).toString(36),
-      ALLOW_REGISTER,
     });
   }
 
@@ -49,6 +48,7 @@ export default async (req, res) => {
     }
   }
   return res.render("index", {
+    ENABLE_FIDO2,
     mtimeJS: Math.floor(fs.statSync("./static/index.js").mtimeMs).toString(36),
     mtimeCSS: Math.floor(fs.statSync("./static/style.css").mtimeMs).toString(36),
     list: JSON.parse(fs.readFileSync("data/latest.json")).map(({ name, otp }) => ({
