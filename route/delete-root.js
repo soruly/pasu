@@ -1,17 +1,10 @@
 import fs from "fs-extra";
+import isSessionValid from "../lib/is-session-valid.js";
 
 const { ENABLE_FIDO2 } = process.env;
 
 export default (req, res) => {
-  if (
-    ENABLE_FIDO2 &&
-    !fs
-      .readdirSync("session")
-      .map((e) => e.replace(".json", ""))
-      .includes(req.cookies.session)
-  ) {
-    return res.status(403);
-  }
+  if (ENABLE_FIDO2 && !isSessionValid(req.cookies.session)) return res.sendStatus(403);
   fs.copyFileSync("data/latest.json", `data/${Date.now()}.json`);
   fs.writeFileSync(
     "data/latest.json",

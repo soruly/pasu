@@ -1,17 +1,10 @@
 import fs from "fs-extra";
+import isSessionValid from "../lib/is-session-valid.js";
 
 const { ENABLE_FIDO2 } = process.env;
 
 export default (req, res) => {
-  if (
-    ENABLE_FIDO2 &&
-    !fs
-      .readdirSync("session")
-      .map((e) => e.replace(".json", ""))
-      .includes(req.cookies.session)
-  ) {
-    return res.status(403);
-  }
+  if (ENABLE_FIDO2 && !isSessionValid(req.cookies.session)) return res.sendStatus(403);
   if (!req.body.name || !req.body.otp) return res.sendStatus(400);
   if (!req.body.name.match(/[a-zA-Z][a-zA-Z0-9]+/)) return res.sendStatus(400);
   if (!req.body.otp.match(/[a-zA-Z0-9]{16,}/)) return res.sendStatus(400);

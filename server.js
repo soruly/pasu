@@ -17,7 +17,6 @@ import getLogout from "./route/get-logout.js";
 import deleteRoot from "./route/delete-root.js";
 import postRoot from "./route/post-root.js";
 import getRoot from "./route/get-root.js";
-import getReg from "./route/get-reg.js";
 
 const {
   SERVER_ADDR = "0.0.0.0",
@@ -86,8 +85,6 @@ app.get("/logout", rateLimit({ max: 5, windowMs: 60 * 1000 }), getLogout);
 
 app.get("/register", rateLimit({ max: 5, windowMs: 60 * 1000 }), getRegister);
 app.post("/register", rateLimit({ max: 5, windowMs: 60 * 1000 }), postRegister);
-
-app.get("/reg", csp, getReg);
 
 app.delete("/", deleteRoot);
 app.post("/", postRoot);

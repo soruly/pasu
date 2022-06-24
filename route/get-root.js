@@ -1,23 +1,12 @@
 import fs from "fs-extra";
 import getOtp from "../lib/get-otp.js";
+import isSessionValid from "../lib/is-session-valid.js";
 
 const { ENABLE_FIDO2, ALLOW_REGISTER } = process.env;
 
 export default async (req, res) => {
-  if (
-    ENABLE_FIDO2 &&
-    !fs
-      .readdirSync("session")
-      .map((e) => e.replace(".json", ""))
-      .includes(req.cookies.session)
-  ) {
-    return res.render("login", {
-      mtimeCSS: Math.floor(fs.statSync("./static/style.css").mtimeMs).toString(36),
-      mtimeJS: Math.floor(fs.statSync("./static/login.js").mtimeMs).toString(36),
-    });
-  }
-
   if (req.headers.accept?.toLowerCase() === "text/event-stream") {
+    if (ENABLE_FIDO2 && !isSessionValid(req.cookies.session)) return res.sendStatus(403);
     res.set({
       "Cache-Control": "no-cache",
       "Content-Type": "text/event-stream",
@@ -49,6 +38,8 @@ export default async (req, res) => {
   }
   return res.render("index", {
     ENABLE_FIDO2,
+    ALLOW_REGISTER,
+    IS_SESSION_VALID: isSessionValid(req.cookies.session),
     mtimeJS: Math.floor(fs.statSync("./static/index.js").mtimeMs).toString(36),
     mtimeCSS: Math.floor(fs.statSync("./static/style.css").mtimeMs).toString(36),
     list: JSON.parse(fs.readFileSync("data/latest.json")).map(({ name, otp }) => ({

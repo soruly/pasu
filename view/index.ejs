@@ -19,6 +19,7 @@
   <link rel="apple-touch-icon" href="/favicon.png" />
   <link rel="stylesheet" href="/style.css?<%=mtimeCSS%>" />
 
+  <% if (!ENABLE_FIDO2 || IS_SESSION_VALID) { %>
   <div class="list">
     <% list.forEach(function(e){ %>
     <div class="item" id="<%= e.name %>">
@@ -30,17 +31,23 @@
     </div>
     <% }); %>
   </div>
+  <% } %>
 
   <div class="counter"></div>
   <div class="nav">
     <div class="title">ソ瑠璃パス</div>
     <div>
-      <% if (ENABLE_FIDO2) { %>
-      <a href="/logout" class="logout material-icons">logout</a>
-      <% } %>
+      <% if (ENABLE_FIDO2) { %> <% if (IS_SESSION_VALID) { %>
       <span class="add material-icons">add</span>
+      <a href="/logout" class="logout material-icons">logout</a>
+      <% } else { %> <% if (ENABLE_FIDO2 && ALLOW_REGISTER) { %>
+      <span class="register material-icons">person_add</span>
+      <% } %>
+      <span class="login material-icons">login</span>
+      <% } %> <% } %>
     </div>
   </div>
+  <% if (!ENABLE_FIDO2 || IS_SESSION_VALID) { %>
   <div class="overlay hidden">
     <form method="post" action="/" enctype="application/x-www-form-urlencoded">
       <label>
@@ -67,6 +74,7 @@
       </label>
       <input type="submit" />
     </form>
+    <% } %>
   </div>
   <script src="/index.js?<%=mtimeJS%>" defer></script>
 </html>
