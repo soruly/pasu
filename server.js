@@ -13,6 +13,7 @@ import getRegister from "./route/get-register.js";
 import postRegister from "./route/post-register.js";
 import getLogin from "./route/get-login.js";
 import postLogin from "./route/post-login.js";
+import getLogout from "./route/get-logout.js";
 import deleteRoot from "./route/delete-root.js";
 import postRoot from "./route/post-root.js";
 import getRoot from "./route/get-root.js";
@@ -81,6 +82,7 @@ app.get(/[^\/]+\.[^\/]+$/, express.static("./static", { maxAge: 1000 * 60 * 60 *
 
 app.get("/login", rateLimit({ max: 5, windowMs: 60 * 1000 }), getLogin);
 app.post("/login", rateLimit({ max: 5, windowMs: 60 * 1000 }), postLogin);
+app.get("/logout", rateLimit({ max: 5, windowMs: 60 * 1000 }), getLogout);
 
 app.get("/register", rateLimit({ max: 5, windowMs: 60 * 1000 }), getRegister);
 app.post("/register", rateLimit({ max: 5, windowMs: 60 * 1000 }), postRegister);
