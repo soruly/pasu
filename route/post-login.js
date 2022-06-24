@@ -46,13 +46,14 @@ export default async (req, res) => {
       )
     );
     // session cookie
-    res.setHeader("Set-Cookie", `session=${uuid}; Path=/; Secure; HttpOnly; SameSite=Strict`);
-    // res.setHeader(
-    //   "Set-Cookie",
-    //   `session=${uuid}; Path=/; Expires=${new Date(
-    //     Date.now() + 1000 * 60 * 60 * 24 * 365
-    //   ).toGMTString()}; Secure; HttpOnly; SameSite=Strict`
-    // );
+    // res.setHeader("Set-Cookie", `session=${uuid}; Path=/; Secure; HttpOnly; SameSite=Strict`);
+    // 10-year long cookie
+    res.setHeader(
+      "Set-Cookie",
+      `session=${uuid}; Path=/; Expires=${new Date(
+        Date.now() + 1000 * 60 * 60 * 24 * 365 * 10
+      ).toGMTString()}; Secure; HttpOnly; SameSite=Strict`
+    );
     return res.sendStatus(204);
   } catch (e) {
     return res.status(400).send(e.toString());
