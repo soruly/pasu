@@ -19,8 +19,6 @@ Self-hosted [TOTP](https://en.wikipedia.org/wiki/Time-based_one-time_password) a
 - User-Agent block list
 - IP block list
 
-Notes: FIDO2 (WebAuthn) is not enabled in demo server
-
 **Warning**
 
 **This PWA is open to public by default.**\
