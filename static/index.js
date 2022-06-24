@@ -34,7 +34,7 @@ document.querySelector(".register")?.addEventListener("click", async (e) => {
         type,
       }),
     });
-    if (res.status === 204) window.location.reload();
+    if (res.status === 204) document.querySelector(".login").click();
   } catch (e) {
     alert(e);
   }
