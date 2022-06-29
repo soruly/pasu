@@ -2,7 +2,7 @@ html,
 body {
   margin: 0;
   padding: 0;
-  font-family: system-ui, Meiryo, sans-serif, Arial;
+  font-family: system-ui, sans-serif, Meiryo;
   user-select: none;
   -webkit-user-select: none;
 }
@@ -13,7 +13,6 @@ body {
   background-attachment: fixed;
   background-size: cover;
   background-position: top center;
-  font-family: sans-serif;
   font-size: 1rem;
 }
 @font-face {
