@@ -238,3 +238,15 @@ input[type="submit"]:active {
   box-shadow: none;
   text-shadow: none;
 }
+@media (prefers-reduced-motion) {
+  .nav .add,
+  .nav .register,
+  .nav .login,
+  .nav .logout,
+  .item .body .delete,
+  .overlay,
+  input[type="text"],
+  input[type="submit"] {
+    transition: none;
+  }
+}
