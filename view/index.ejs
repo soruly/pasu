@@ -22,7 +22,7 @@
   <% if (!ENABLE_FIDO2 || IS_SESSION_VALID) { %>
   <div class="list">
     <% list.forEach(function(e){ %>
-    <div class="item" id="<%= e.name %>">
+    <div class="item" data-id="<%= e.id %>">
       <div class="title"><%= e.name %></div>
       <div class="body">
         <div class="otp"><%= e.otp %></div>
@@ -61,14 +61,7 @@
     <form method="post" action="/" enctype="application/x-www-form-urlencoded">
       <label>
         Name
-        <input
-          name="name"
-          type="text"
-          required
-          minlength="2"
-          pattern="[a-zA-Z][a-zA-Z0-9]+"
-          placeholder="(alphanumeric characters only)"
-        />
+        <input name="name" type="text" required />
       </label>
       <label>
         Secret

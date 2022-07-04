@@ -98,8 +98,9 @@ if (document.querySelector(".list")) {
         easing: "linear",
       }
     );
-    for (const { name, otp } of JSON.parse(event.data).list) {
-      document.querySelector(`#${name} .otp`).innerText = otp;
+    const list = JSON.parse(event.data).list;
+    for (const item of document.querySelectorAll(".list .item")) {
+      item.querySelector(".otp").innerText = list.find((e) => e.id === item.dataset.id).otp;
     }
   };
 }
@@ -129,12 +130,14 @@ document.querySelector("form")?.addEventListener("submit", async (e) => {
 
 for (const e of document.querySelectorAll(".delete")) {
   e.addEventListener("click", async (e) => {
-    if (confirm(`Delete ${e.target.parentElement.parentElement.id} ?`)) {
+    if (
+      confirm(`Delete ${e.target.parentElement.parentElement.querySelector(".title").innerText} ?`)
+    ) {
       const res = await fetch("/", {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          name: e.target.parentElement.parentElement.id,
+          id: e.target.parentElement.parentElement.dataset.id,
         }),
       });
       if (res.status === 204) window.location.reload();
@@ -179,7 +182,7 @@ if ("BarcodeDetector" in window) {
           results.find((e) => getCodeFromString(e.rawValue)).rawValue
         );
         document.querySelector(".scanner").classList.add("hidden");
-        document.querySelector(`[name=name]`).value = issuer ?? label;
+        document.querySelector(`[name=name]`).value = issuer ? `${issuer} (${label})` : label;
         document.querySelector(`[name=otp]`).value = secret;
         document.querySelector(".overlay").classList.remove("invisible");
         for (const track of mediaStream.getTracks()) {

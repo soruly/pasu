@@ -20,7 +20,8 @@ export default async (req, res) => {
           nextUpdate:
             (Math.floor(Math.round(new Date().getTime() / 1000.0) / 30) + 1) * 30 * 1000 -
             new Date().getTime(),
-          list: JSON.parse(fs.readFileSync("data/latest.json")).map(({ name, otp }) => ({
+          list: JSON.parse(fs.readFileSync("data/latest.json")).map(({ id, name, otp }) => ({
+            id,
             name,
             otp: getOtp(otp),
           })),
@@ -42,7 +43,8 @@ export default async (req, res) => {
     IS_SESSION_VALID: isSessionValid(req.cookies.session),
     mtimeJS: Math.floor(fs.statSync("./static/index.js").mtimeMs).toString(36),
     mtimeCSS: Math.floor(fs.statSync("./static/style.css").mtimeMs).toString(36),
-    list: JSON.parse(fs.readFileSync("data/latest.json")).map(({ name, otp }) => ({
+    list: JSON.parse(fs.readFileSync("data/latest.json")).map(({ id, name, otp }) => ({
+      id,
       name,
       otp: "",
     })),

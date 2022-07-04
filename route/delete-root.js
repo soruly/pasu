@@ -9,7 +9,7 @@ export default (req, res) => {
   fs.writeFileSync(
     "data/latest.json",
     JSON.stringify(
-      JSON.parse(fs.readFileSync("data/latest.json")).filter((e) => e.name !== req.body.name),
+      JSON.parse(fs.readFileSync("data/latest.json")).filter((e) => e.id !== req.body.id),
       null,
       2
     )
