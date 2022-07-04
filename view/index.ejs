@@ -37,14 +37,15 @@
   <div class="nav">
     <div class="title">ソ瑠璃パス</div>
     <div>
-      <% if (ENABLE_FIDO2) { %> <% if (IS_SESSION_VALID) { %>
+      <% if (!ENABLE_FIDO2 || IS_SESSION_VALID) { %>
       <span class="add material-icons">add</span>
+      <% } %><% if (ENABLE_FIDO2 && IS_SESSION_VALID) { %>
       <a href="/logout" class="logout material-icons">logout</a>
-      <% } else { %> <% if (ENABLE_FIDO2 && ALLOW_REGISTER) { %>
+      <% } %><% if (ENABLE_FIDO2 && ALLOW_REGISTER) { %>
       <span class="register material-icons">person_add</span>
-      <% } %>
+      <% } %><% if (ENABLE_FIDO2) { %>
       <span class="login material-icons">login</span>
-      <% } %> <% } %>
+      <% } %>
     </div>
   </div>
   <% if (!ENABLE_FIDO2 || IS_SESSION_VALID) { %>
