@@ -42,9 +42,9 @@
       <span class="add material-icons">add</span>
       <% } %><% if (ENABLE_FIDO2 && IS_SESSION_VALID) { %>
       <a href="/logout" class="logout material-icons">logout</a>
-      <% } %><% if (ENABLE_FIDO2 && ALLOW_REGISTER) { %>
+      <% } %><% if (ENABLE_FIDO2 && !IS_SESSION_VALID && ALLOW_REGISTER) { %>
       <span class="register material-icons">person_add</span>
-      <% } %><% if (ENABLE_FIDO2) { %>
+      <% } %><% if (ENABLE_FIDO2 && !IS_SESSION_VALID) { %>
       <span class="login material-icons">login</span>
       <% } %>
     </div>
