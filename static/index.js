@@ -106,11 +106,11 @@ if (document.querySelector(".list")) {
 
 document.querySelector(".overlay")?.addEventListener("click", (e) => {
   if (e.target.parentElement === document.body)
-    document.querySelector(".overlay").classList.add("hidden");
+    document.querySelector(".overlay").classList.add("invisible");
 });
 
 document.querySelector(".add")?.addEventListener("click", (e) => {
-  document.querySelector(".overlay").classList.remove("hidden");
+  document.querySelector(".overlay").classList.remove("invisible");
 });
 
 document.querySelector("form")?.addEventListener("submit", async (e) => {
@@ -139,6 +139,61 @@ for (const e of document.querySelectorAll(".delete")) {
       });
       if (res.status === 204) window.location.reload();
     }
+  });
+}
+
+if ("BarcodeDetector" in window) {
+  const getCodeFromString = (str) => {
+    try {
+      const url = new URL(str);
+      if (url.searchParams.get("secret")) {
+        return {
+          label: url.pathname.split("/").pop(),
+          secret: url.searchParams.get("secret"),
+          issuer: url.searchParams.get("issuer") ?? null,
+        };
+      }
+    } catch (e) {
+      return null;
+    }
+  };
+
+  let mediaStream = null;
+  document.querySelector(".scan").classList.remove("hidden");
+  document.querySelector(".scan").addEventListener("click", async (e) => {
+    const barcodeDetector = new BarcodeDetector({ formats: ["qr_code"] });
+    mediaStream = await navigator.mediaDevices.getUserMedia({
+      audio: false,
+      video: { facingMode: "environment" },
+    });
+    const video = document.querySelector(".camera");
+    video.srcObject = mediaStream;
+    video.onloadedmetadata = (e) => video.play();
+    document.querySelector(".scanner").classList.remove("hidden");
+    while (true) {
+      await new Promise((resolve) => setTimeout(resolve, 100));
+      if (video.readyState !== 4) continue;
+      const results = await barcodeDetector.detect(video);
+      if (results.some((e) => getCodeFromString(e.rawValue))) {
+        const { label, secret, issuer } = getCodeFromString(
+          results.find((e) => getCodeFromString(e.rawValue)).rawValue
+        );
+        document.querySelector(".scanner").classList.add("hidden");
+        document.querySelector(`[name=name]`).value = issuer ?? label;
+        document.querySelector(`[name=otp]`).value = secret;
+        document.querySelector(".overlay").classList.remove("invisible");
+        for (const track of mediaStream.getTracks()) {
+          track.stop();
+        }
+        break;
+      }
+    }
+  });
+  document.querySelector(".close").addEventListener("click", async (e) => {
+    for (const track of mediaStream.getTracks()) {
+      track.stop();
+    }
+    document.querySelector(".scanner").classList.add("hidden");
   });
 }
 

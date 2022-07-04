@@ -43,6 +43,30 @@ body {
   display: none;
   font-family: "Material Icons";
 }
+.hidden {
+  display: none;
+}
+
+.scanner {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+.scanner .camera {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+.scanner .close {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
 .counter {
   position: fixed;
   left: 0;
@@ -76,7 +100,9 @@ body {
   color: rgba(255, 255, 255, 1);
   text-shadow: 0 0 0.25rem rgba(255, 255, 255, 1);
 }
+.scanner .close,
 .nav .add,
+.nav .scan,
 .nav .register,
 .nav .login,
 .nav .logout {
@@ -92,13 +118,17 @@ body {
   cursor: pointer;
   transition: all 300ms cubic-bezier(0.22, 0.61, 0.36, 1);
 }
+.scanner .close,
 .nav .add:hover,
+.nav .scan:hover,
 .nav .register:hover,
 .nav .login:hover,
 .nav .logout:hover {
   text-shadow: 0 0 0.25rem rgba(0, 0, 0, 1);
 }
+.scanner .close,
 .nav .add:active,
+.nav .scan:active,
 .nav .register:active,
 .nav .login:active,
 .nav .logout:active {
@@ -168,7 +198,7 @@ body {
   opacity: 1;
   pointer-events: auto;
 }
-.hidden {
+.invisible {
   opacity: 0;
   pointer-events: none;
 }
@@ -239,7 +269,9 @@ input[type="submit"]:active {
   text-shadow: none;
 }
 @media (prefers-reduced-motion) {
+  .scanner .close,
   .nav .add,
+  .nav .scan,
   .nav .register,
   .nav .login,
   .nav .logout,

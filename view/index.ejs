@@ -38,6 +38,7 @@
     <div class="title">ソ瑠璃パス</div>
     <div>
       <% if (!ENABLE_FIDO2 || IS_SESSION_VALID) { %>
+      <span class="scan hidden material-icons">qr_code_scanner</span>
       <span class="add material-icons">add</span>
       <% } %><% if (ENABLE_FIDO2 && IS_SESSION_VALID) { %>
       <a href="/logout" class="logout material-icons">logout</a>
@@ -48,8 +49,15 @@
       <% } %>
     </div>
   </div>
+
+  <div class="scanner hidden">
+    <video class="camera" playsinline></video>
+    <span class="close material-icons">close</span>
+  </div>
+
   <% if (!ENABLE_FIDO2 || IS_SESSION_VALID) { %>
-  <div class="overlay hidden">
+
+  <div class="overlay invisible">
     <form method="post" action="/" enctype="application/x-www-form-urlencoded">
       <label>
         Name
