@@ -174,10 +174,11 @@ if ("BarcodeDetector" in window) {
     video.onloadedmetadata = (e) => video.play();
     document.querySelector(".scanner").classList.remove("hidden");
     while (true) {
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      await new Promise((resolve) => setTimeout(resolve, 500));
       if (video.readyState !== 4) continue;
       const results = await barcodeDetector.detect(video);
       if (results.some((e) => getCodeFromString(e.rawValue))) {
+        window.navigator.vibrate(100);
         const { label, secret, issuer } = getCodeFromString(
           results.find((e) => getCodeFromString(e.rawValue)).rawValue
         );
