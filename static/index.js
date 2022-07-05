@@ -149,7 +149,7 @@ if ("BarcodeDetector" in window) {
   const getCodeFromString = (str) => {
     try {
       const url = new URL(str);
-      if (url.searchParams.get("secret")) {
+      if (url.protocol === "otpauth:" && url.searchParams.get("secret")) {
         return {
           label: url.pathname.split("/").pop(),
           secret: url.searchParams.get("secret"),
