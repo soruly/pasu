@@ -1,3 +1,7 @@
+if (window.matchMedia("(display-mode: standalone)").matches) {
+  window.resizeTo(500, 800);
+}
+
 const arrayBufferToBase64 = (ab) => btoa(String.fromCharCode(...new Uint8Array(ab)));
 const base64ToArrayBuffer = (str) => Uint8Array.from(atob(str), (c) => c.charCodeAt(0)).buffer;
 
