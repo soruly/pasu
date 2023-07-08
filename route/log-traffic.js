@@ -8,7 +8,7 @@ export default (req, res, next) => {
     req.ip,
     res.locals.country.isoCode,
     res.locals.ASN.autonomousSystemNumber,
-    req.path
+    req.path,
   );
   res.on("finish", () => {
     console.log(
@@ -19,7 +19,7 @@ export default (req, res, next) => {
       res.locals.ASN.autonomousSystemNumber,
       req.path,
       res.statusCode,
-      `${(performance.now() - startTime).toFixed(0)}ms`
+      `${(performance.now() - startTime).toFixed(0)}ms`,
     );
   });
   next();

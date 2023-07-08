@@ -18,8 +18,8 @@ export default (req, res) => {
         otp: req.body.otp,
       }),
       null,
-      2
-    )
+      2,
+    ),
   );
   return res.sendStatus(204);
 };

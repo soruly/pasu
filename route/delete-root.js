@@ -11,8 +11,8 @@ export default (req, res) => {
     JSON.stringify(
       JSON.parse(fs.readFileSync("data/latest.json")).filter((e) => e.id !== req.body.id),
       null,
-      2
-    )
+      2,
+    ),
   );
   return res.sendStatus(204);
 };

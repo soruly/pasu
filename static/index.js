@@ -100,7 +100,7 @@ if (document.querySelector(".list")) {
         duration: JSON.parse(event.data).nextUpdate,
         iterations: 1,
         easing: "linear",
-      }
+      },
     );
     const list = JSON.parse(event.data).list;
     for (const item of document.querySelectorAll(".list .item")) {
@@ -184,7 +184,7 @@ if ("BarcodeDetector" in window) {
       if (results.some((e) => getCodeFromString(e.rawValue))) {
         window.navigator.vibrate(100);
         const { label, secret, issuer } = getCodeFromString(
-          results.find((e) => getCodeFromString(e.rawValue)).rawValue
+          results.find((e) => getCodeFromString(e.rawValue)).rawValue,
         );
         document.querySelector(".scanner").classList.add("hidden");
         document.querySelector(`[name=name]`).value = issuer ? `${issuer} (${label})` : label;

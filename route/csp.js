@@ -10,7 +10,7 @@ export default async (req, res, next) => {
       "base-uri 'none'",
       "frame-ancestors 'none'",
       "block-all-mixed-content",
-    ].join("; ")
+    ].join("; "),
   );
   next();
 };

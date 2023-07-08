@@ -12,7 +12,7 @@ export default async (req, res) => {
         rawId: new Uint8Array(Buffer.from(req.body.rawId, "base64")).buffer,
         response: {
           authenticatorData: new Uint8Array(
-            Buffer.from(req.body.response.authenticatorData, "base64")
+            Buffer.from(req.body.response.authenticatorData, "base64"),
           ).buffer,
           clientDataJSON: req.body.response.clientDataJSON,
           signature: req.body.response.signature,
@@ -25,7 +25,7 @@ export default async (req, res) => {
         factor: "either",
         publicKey: fs.readFileSync(`registered/${req.body.id}.pem`, "utf8"),
         prevCounter: 0,
-      }
+      },
     );
     req.app.locals.assertionOptions = null;
     console.log(authnResult);
@@ -42,8 +42,8 @@ export default async (req, res) => {
           agent: req.headers["user-agent"],
         },
         null,
-        2
-      )
+        2,
+      ),
     );
     // session cookie
     // res.setHeader("Set-Cookie", `session=${uuid}; Path=/; Secure; HttpOnly; SameSite=Strict`);
@@ -51,8 +51,8 @@ export default async (req, res) => {
     res.setHeader(
       "Set-Cookie",
       `session=${uuid}; Path=/; Expires=${new Date(
-        Date.now() + 1000 * 60 * 60 * 24 * 365 * 10
-      ).toGMTString()}; Secure; HttpOnly; SameSite=Strict`
+        Date.now() + 1000 * 60 * 60 * 24 * 365 * 10,
+      ).toGMTString()}; Secure; HttpOnly; SameSite=Strict`,
     );
     return res.sendStatus(204);
   } catch (e) {

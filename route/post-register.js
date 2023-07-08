@@ -10,7 +10,7 @@ export default async (req, res) => {
         rawId: new Uint8Array(Buffer.from(req.body.rawId, "base64")).buffer,
         response: {
           attestationObject: new Uint8Array(
-            Buffer.from(req.body.response.attestationObject, "base64")
+            Buffer.from(req.body.response.attestationObject, "base64"),
           ).buffer,
           clientDataJSON: req.body.response.clientDataJSON,
         },
@@ -19,13 +19,13 @@ export default async (req, res) => {
         challenge: req.app.locals.registrationOptions.challenge,
         origin: `https://${SERVER_NAME}`,
         factor: "either",
-      }
+      },
     );
     req.app.locals.registrationOptions = null;
     console.log(regResult);
     fs.outputFileSync(
       `registered/${req.body.id}.pem`,
-      regResult.authnrData.get("credentialPublicKeyPem")
+      regResult.authnrData.get("credentialPublicKeyPem"),
     );
     fs.outputFileSync(
       `registered/${req.body.id}.json`,
@@ -37,8 +37,8 @@ export default async (req, res) => {
           agent: req.headers["user-agent"],
         },
         null,
-        2
-      )
+        2,
+      ),
     );
     return res.sendStatus(204);
   } catch (e) {

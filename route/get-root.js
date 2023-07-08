@@ -25,15 +25,15 @@ export default async (req, res) => {
             name,
             otp: getOtp(otp),
           })),
-        })}\n\n`
+        })}\n\n`,
       );
 
       await new Promise((resolve) =>
         setTimeout(
           resolve,
           (Math.floor(Math.round(new Date().getTime() / 1000.0) / 30) + 1) * 30 * 1000 -
-            new Date().getTime()
-        )
+            new Date().getTime(),
+        ),
       );
     }
   }
