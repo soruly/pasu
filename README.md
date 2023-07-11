@@ -3,7 +3,7 @@
 Self-hosted [TOTP](https://en.wikipedia.org/wiki/Time-based_one-time_password) authenticator PWA with [FIDO2](https://en.wikipedia.org/wiki/FIDO2_Project) ([WebAuthn](https://en.wikipedia.org/wiki/WebAuthn))
 
 [![License](https://img.shields.io/github/license/soruly/pasu.svg?style=flat-square)](https://github.com/soruly/pasu/blob/master/LICENSE)
-[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/soruly/pasu/Node.js%20Lint?style=flat-square)](https://github.com/soruly/pasu/actions)
+[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/soruly/pasu/node.js.yml?style=flat-square)](https://github.com/soruly/pasu/actions)
 
 ![](https://user-images.githubusercontent.com/1979746/174454681-5d9cc324-bddc-4516-9452-f64a97311db4.png)
 ![](https://user-images.githubusercontent.com/1979746/174454683-0ee0128f-3be1-4e44-8787-88c04784ab9e.png)
