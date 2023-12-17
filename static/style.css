@@ -5,6 +5,7 @@ body {
   font-family: system-ui, sans-serif, Meiryo;
   user-select: none;
   -webkit-user-select: none;
+  overscroll-behavior: none;
 }
 body {
   max-width: 25rem;

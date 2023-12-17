@@ -1,4 +1,4 @@
-import fs from "fs-extra";
+import fs from "node:fs/promises";
 import getOtp from "../lib/get-otp.js";
 import isSessionValid from "../lib/is-session-valid.js";
 
@@ -6,7 +6,7 @@ const { ENABLE_FIDO2, ALLOW_REGISTER } = process.env;
 
 export default async (req, res) => {
   if (req.headers.accept?.toLowerCase() === "text/event-stream") {
-    if (ENABLE_FIDO2 && !isSessionValid(req.cookies.session)) return res.sendStatus(403);
+    if (ENABLE_FIDO2 && !(await isSessionValid(req.cookies.session))) return res.sendStatus(403);
     res.set({
       "Cache-Control": "no-cache",
       "Content-Type": "text/event-stream",
@@ -20,7 +20,7 @@ export default async (req, res) => {
           nextUpdate:
             (Math.floor(Math.round(new Date().getTime() / 1000.0) / 30) + 1) * 30 * 1000 -
             new Date().getTime(),
-          list: JSON.parse(fs.readFileSync("data/latest.json")).map(({ id, name, otp }) => ({
+          list: JSON.parse(await fs.readFile("data/latest.json")).map(({ id, name, otp }) => ({
             id,
             name,
             otp: getOtp(otp),
@@ -40,10 +40,10 @@ export default async (req, res) => {
   return res.render("index", {
     ENABLE_FIDO2,
     ALLOW_REGISTER,
-    IS_SESSION_VALID: isSessionValid(req.cookies.session),
-    mtimeJS: Math.floor(fs.statSync("./static/index.js").mtimeMs).toString(36),
-    mtimeCSS: Math.floor(fs.statSync("./static/style.css").mtimeMs).toString(36),
-    list: JSON.parse(fs.readFileSync("data/latest.json")).map(({ id, name, otp }) => ({
+    IS_SESSION_VALID: await isSessionValid(req.cookies.session),
+    mtimeJS: Math.floor((await fs.stat("./static/index.js")).mtimeMs).toString(36),
+    mtimeCSS: Math.floor((await fs.stat("./static/style.css")).mtimeMs).toString(36),
+    list: JSON.parse(await fs.readFile("data/latest.json")).map(({ id, name, otp }) => ({
       id,
       name,
       otp: "",

@@ -1,4 +1,4 @@
-import fs from "fs-extra";
+import fs from "node:fs/promises";
 const { SERVER_NAME, ENABLE_FIDO2, ALLOW_REGISTER } = process.env;
 
 export default async (req, res) => {
@@ -23,11 +23,11 @@ export default async (req, res) => {
     );
     req.app.locals.registrationOptions = null;
     console.log(regResult);
-    fs.outputFileSync(
+    await fs.writeFile(
       `registered/${req.body.id}.pem`,
       regResult.authnrData.get("credentialPublicKeyPem"),
     );
-    fs.outputFileSync(
+    await fs.writeFile(
       `registered/${req.body.id}.json`,
       JSON.stringify(
         {

@@ -1,4 +1,4 @@
-import { performance } from "perf_hooks";
+import { performance } from "node:perf_hooks";
 
 export default (req, res, next) => {
   const startTime = performance.now();

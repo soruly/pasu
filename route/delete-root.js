@@ -1,15 +1,15 @@
-import fs from "fs-extra";
+import fs from "node:fs/promises";
 import isSessionValid from "../lib/is-session-valid.js";
 
 const { ENABLE_FIDO2 } = process.env;
 
-export default (req, res) => {
-  if (ENABLE_FIDO2 && !isSessionValid(req.cookies.session)) return res.sendStatus(403);
-  fs.copyFileSync("data/latest.json", `data/${Date.now()}.json`);
-  fs.writeFileSync(
+export default async (req, res) => {
+  if (ENABLE_FIDO2 && !(await isSessionValid(req.cookies.session))) return res.sendStatus(403);
+  await fs.copyFile("data/latest.json", `data/${Date.now()}.json`);
+  await fs.writeFile(
     "data/latest.json",
     JSON.stringify(
-      JSON.parse(fs.readFileSync("data/latest.json")).filter((e) => e.id !== req.body.id),
+      JSON.parse(await fs.readFile("data/latest.json")).filter((e) => e.id !== req.body.id),
       null,
       2,
     ),

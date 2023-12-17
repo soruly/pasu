@@ -1,5 +1,5 @@
-import fs from "fs-extra";
-import crypto from "crypto";
+import fs from "node:fs/promises";
+import crypto from "node:crypto";
 
 const { SERVER_NAME, ENABLE_FIDO2 } = process.env;
 
@@ -23,14 +23,14 @@ export default async (req, res) => {
         challenge: req.app.locals.assertionOptions.challenge,
         origin: `https://${SERVER_NAME}`,
         factor: "either",
-        publicKey: fs.readFileSync(`registered/${req.body.id}.pem`, "utf8"),
+        publicKey: await fs.readFile(`registered/${req.body.id}.pem`, "utf8"),
         prevCounter: 0,
       },
     );
     req.app.locals.assertionOptions = null;
     console.log(authnResult);
     const uuid = crypto.webcrypto.randomUUID();
-    fs.outputFileSync(
+    await fs.writeFile(
       `session/${uuid}.json`,
       JSON.stringify(
         {

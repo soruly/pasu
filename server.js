@@ -1,6 +1,6 @@
 import "dotenv/config.js";
-import fs from "fs-extra";
-import path from "path";
+import fs from "node:fs/promises";
+import path from "node:path";
 import express from "express";
 import rateLimit from "express-rate-limit";
 import cookieParser from "cookie-parser";
@@ -27,9 +27,12 @@ const {
   ENABLE_FIDO2,
 } = process.env;
 
-if (!fs.existsSync("data/latest.json")) fs.outputFileSync("data/latest.json", JSON.stringify([]));
-fs.ensureDirSync("registered");
-fs.ensureDirSync("session");
+await fs.mkdir("data", { recursive: true });
+if (!(await fs.stat("data/latest.json").catch(() => null))) {
+  await fs.writeFile("data/latest.json", JSON.stringify([]));
+}
+await fs.mkdir("registered", { recursive: true });
+await fs.mkdir("session", { recursive: true });
 
 const app = express();
 

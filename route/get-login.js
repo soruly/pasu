@@ -1,4 +1,4 @@
-import fs from "fs-extra";
+import fs from "node:fs/promises";
 
 const { ENABLE_FIDO2 } = process.env;
 
@@ -8,8 +8,7 @@ export default async (req, res) => {
   req.app.locals.assertionOptions = assertionOptions;
   return res.send({
     ...assertionOptions,
-    allowCredentials: fs
-      .readdirSync("registered")
+    allowCredentials: (await fs.readdir("registered"))
       .filter((e) => e.match(/\.pem$/))
       .map((e) => ({
         type: "public-key",
