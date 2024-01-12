@@ -36,6 +36,6 @@
     "fido2-lib": "^3.4.4"
   },
   "devDependencies": {
-    "prettier": "^3.1.1"
+    "prettier": "^3.2.1"
   }
 }
