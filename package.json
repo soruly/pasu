@@ -33,7 +33,7 @@
     "ejs": "^3.1.9",
     "express": "^4.18.3",
     "express-rate-limit": "^7.2.0",
-    "fido2-lib": "^3.5.0"
+    "fido2-lib": "^3.5.2"
   },
   "devDependencies": {
     "prettier": "^3.2.5"
