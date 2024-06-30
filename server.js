@@ -1,4 +1,3 @@
-import "dotenv/config.js";
 import fs from "node:fs/promises";
 import path from "node:path";
 import express from "express";
@@ -18,6 +17,7 @@ import deleteRoot from "./route/delete-root.js";
 import postRoot from "./route/post-root.js";
 import getRoot from "./route/get-root.js";
 
+process.loadEnvFile();
 const {
   SERVER_ADDR = "0.0.0.0",
   SERVER_PORT = 3000,

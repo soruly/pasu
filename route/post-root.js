@@ -2,9 +2,8 @@ import crypto from "node:crypto";
 import fs from "node:fs/promises";
 import isSessionValid from "../lib/is-session-valid.js";
 
-const { ENABLE_FIDO2 } = process.env;
-
 export default async (req, res) => {
+  const { ENABLE_FIDO2 } = process.env;
   if (ENABLE_FIDO2 && !(await isSessionValid(req.cookies.session))) return res.sendStatus(403);
   if (!req.body.name || !req.body.otp) return res.sendStatus(400);
   if (!req.body.otp.match(/[a-zA-Z0-9]{16,}/)) return res.sendStatus(400);

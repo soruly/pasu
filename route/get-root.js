@@ -2,9 +2,8 @@ import fs from "node:fs/promises";
 import getOtp from "../lib/get-otp.js";
 import isSessionValid from "../lib/is-session-valid.js";
 
-const { ENABLE_FIDO2, ALLOW_REGISTER } = process.env;
-
 export default async (req, res) => {
+  const { ENABLE_FIDO2, ALLOW_REGISTER } = process.env;
   if (req.headers.accept?.toLowerCase() === "text/event-stream") {
     if (ENABLE_FIDO2 && !(await isSessionValid(req.cookies.session))) return res.sendStatus(403);
     res.set({

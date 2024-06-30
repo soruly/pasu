@@ -1,9 +1,8 @@
 import fs from "node:fs/promises";
 import crypto from "node:crypto";
 
-const { SERVER_NAME, ENABLE_FIDO2 } = process.env;
-
 export default async (req, res) => {
+  const { SERVER_NAME, ENABLE_FIDO2 } = process.env;
   if (!ENABLE_FIDO2) return res.status(403).send("FIDO2 disabled");
   try {
     const authnResult = await req.app.locals.f2l.assertionResult(

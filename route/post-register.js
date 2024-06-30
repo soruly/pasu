@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
-const { SERVER_NAME, ENABLE_FIDO2, ALLOW_REGISTER } = process.env;
 
 export default async (req, res) => {
+  const { SERVER_NAME, ENABLE_FIDO2, ALLOW_REGISTER } = process.env;
   if (!ENABLE_FIDO2 || !ALLOW_REGISTER) return res.status(403).send("Registration disabled");
   try {
     const regResult = await req.app.locals.f2l.attestationResult(
