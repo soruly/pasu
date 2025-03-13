@@ -1,3 +1,4 @@
+import crypto from "node:crypto";
 import fs from "node:fs/promises";
 import getOtp from "../lib/get-otp.js";
 import isSessionValid from "../lib/is-session-valid.js";
@@ -40,8 +41,16 @@ export default async (req, res) => {
     ENABLE_FIDO2,
     ALLOW_REGISTER,
     IS_SESSION_VALID: await isSessionValid(req.cookies.session),
-    mtimeJS: Math.floor((await fs.stat("./static/index.js")).mtimeMs).toString(36),
-    mtimeCSS: Math.floor((await fs.stat("./static/style.css")).mtimeMs).toString(36),
+    integrity: {
+      css: `sha384-${crypto
+        .createHash("sha384")
+        .update(await fs.readFile("static/style.css"))
+        .digest("base64")}`,
+      js: `sha384-${crypto
+        .createHash("sha384")
+        .update(await fs.readFile("static/index.js"))
+        .digest("base64")}`,
+    },
     list: JSON.parse(await fs.readFile("data/latest.json")).map(({ id, name, otp }) => ({
       id,
       name,

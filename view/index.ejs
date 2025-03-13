@@ -17,7 +17,7 @@
   <link rel="manifest" href="/manifest.json" />
   <link rel="icon" type="image/png" href="/favicon.png" />
   <link rel="apple-touch-icon" href="/favicon.png" />
-  <link rel="stylesheet" href="/style.css?<%=mtimeCSS%>" />
+  <link rel="stylesheet" href="/style.css?<%= integrity.css %>" integrity="<%= integrity.css %>" />
 
   <% if (!ENABLE_FIDO2 || IS_SESSION_VALID) { %>
   <div class="list">
@@ -78,5 +78,5 @@
     </form>
     <% } %>
   </div>
-  <script src="/index.js?<%=mtimeJS%>" defer></script>
+  <script src="/index.js?<%= integrity.js %>" defer integrity="<%= integrity.js %>"></script>
 </html>
