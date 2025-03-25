@@ -37,6 +37,9 @@ export default async (req, res) => {
       );
     }
   }
+  const headerList = ["Sec-CH-UA-Model", "Sec-CH-UA-Platform", "Sec-CH-UA-Platform-Version"];
+  res.set("Accept-CH", headerList.join(", "));
+  res.set("Vary", headerList.join(", "));
   return res.render("index", {
     ENABLE_FIDO2,
     ALLOW_REGISTER,
