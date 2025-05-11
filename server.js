@@ -38,7 +38,7 @@ const app = express();
 
 app.disable("x-powered-by");
 
-app.set("trust proxy", 1);
+app.set("trust proxy", ["loopback", "linklocal", "uniquelocal"]);
 app.set("view engine", "ejs");
 app.set("views", path.resolve("./view"));
 
