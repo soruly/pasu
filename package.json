@@ -31,7 +31,7 @@
     "cookie-parser": "^1.4.7",
     "ejs": "^3.1.10",
     "express": "^5.1.0",
-    "express-rate-limit": "^8.1.0",
+    "express-rate-limit": "^8.2.0",
     "fido2-lib": "^3.5.3"
   },
   "devDependencies": {
