@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/soruly/pasu#readme",
   "dependencies": {
-    "@maxmind/geoip2-node": "^6.2.0",
+    "@maxmind/geoip2-node": "^6.3.0",
     "cookie-parser": "^1.4.7",
     "ejs": "^3.1.10",
     "express": "^5.1.0",
