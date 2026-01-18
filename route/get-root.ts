@@ -20,11 +20,13 @@ export default async (req, res) => {
           nextUpdate:
             (Math.floor(Math.round(new Date().getTime() / 1000.0) / 30) + 1) * 30 * 1000 -
             new Date().getTime(),
-          list: JSON.parse(await fs.readFile("data/latest.json")).map(({ id, name, otp }) => ({
-            id,
-            name,
-            otp: getOtp(otp),
-          })),
+          list: JSON.parse(await fs.readFile("data/latest.json", "utf8")).map(
+            ({ id, name, otp }) => ({
+              id,
+              name,
+              otp: getOtp(otp),
+            }),
+          ),
         })}\n\n`,
       );
 
@@ -54,7 +56,7 @@ export default async (req, res) => {
         .update(await fs.readFile("static/index.js"))
         .digest("base64")}`,
     },
-    list: JSON.parse(await fs.readFile("data/latest.json")).map(({ id, name, otp }) => ({
+    list: JSON.parse(await fs.readFile("data/latest.json", "utf8")).map(({ id, name, otp }) => ({
       id,
       name,
       otp: "",

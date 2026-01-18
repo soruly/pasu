@@ -11,7 +11,7 @@ export default async (req, res) => {
   await fs.writeFile(
     "data/latest.json",
     JSON.stringify(
-      JSON.parse(await fs.readFile("data/latest.json")).concat({
+      JSON.parse(await fs.readFile("data/latest.json", "utf8")).concat({
         id: crypto.webcrypto.randomUUID(),
         name: req.body.name,
         otp: req.body.otp,

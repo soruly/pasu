@@ -8,7 +8,7 @@ export default async (req, res) => {
   await fs.writeFile(
     "data/latest.json",
     JSON.stringify(
-      JSON.parse(await fs.readFile("data/latest.json")).filter((e) => e.id !== req.body.id),
+      JSON.parse(await fs.readFile("data/latest.json", "utf8")).filter((e) => e.id !== req.body.id),
       null,
       2,
     ),
