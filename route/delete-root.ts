@@ -1,21 +1,14 @@
-import crypto from "node:crypto";
 import fs from "node:fs/promises";
-import isSessionValid from "../lib/is-session-valid.js";
+import isSessionValid from "../lib/is-session-valid.ts";
 
 export default async (req, res) => {
   const { ENABLE_FIDO2 } = process.env;
   if (ENABLE_FIDO2 && !(await isSessionValid(req.cookies.session))) return res.sendStatus(403);
-  if (!req.body.name || !req.body.otp) return res.sendStatus(400);
-  if (!req.body.otp.match(/[a-zA-Z0-9]{16,}/)) return res.sendStatus(400);
   await fs.copyFile("data/latest.json", `data/${Date.now()}.json`);
   await fs.writeFile(
     "data/latest.json",
     JSON.stringify(
-      JSON.parse(await fs.readFile("data/latest.json")).concat({
-        id: crypto.webcrypto.randomUUID(),
-        name: req.body.name,
-        otp: req.body.otp,
-      }),
+      JSON.parse(await fs.readFile("data/latest.json")).filter((e) => e.id !== req.body.id),
       null,
       2,
     ),

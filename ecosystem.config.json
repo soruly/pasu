@@ -2,9 +2,8 @@
   "apps": [
     {
       "name": "pasu",
-      "script": "server.js",
-      "instances": 1,
-      "exec_mode": "fork"
+      "interpreter": "node",
+      "script": "server.ts"
     }
   ]
 }

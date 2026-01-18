@@ -31,13 +31,13 @@ https://user-images.githubusercontent.com/1979746/174453876-f4d81b10-bf43-41b9-b
 
 ## Getting Started
 
-Prerequisites: nodejs >= 16
+Prerequisites: nodejs >= 22.18
 
 ```
 git clone https://github.com/soruly/pasu.git
 cd pasu
 npm install
-node server.js
+node server.ts
 ```
 
 Note: In order for PWA to work, you must host the server behind a reverse proxy (like nginx) with HTTPS

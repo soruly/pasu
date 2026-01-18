@@ -1,7 +1,7 @@
 import crypto from "node:crypto";
 import fs from "node:fs/promises";
-import getOtp from "../lib/get-otp.js";
-import isSessionValid from "../lib/is-session-valid.js";
+import getOtp from "../lib/get-otp.ts";
+import isSessionValid from "../lib/is-session-valid.ts";
 
 export default async (req, res) => {
   const { ENABLE_FIDO2, ALLOW_REGISTER } = process.env;

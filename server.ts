@@ -5,17 +5,17 @@ import rateLimit from "express-rate-limit";
 import cookieParser from "cookie-parser";
 import { Fido2Lib } from "fido2-lib";
 
-import csp from "./route/csp.js";
-import logTraffic from "./route/log-traffic.js";
-import getIpInfo from "./lib/get-ip-info.js";
-import getRegister from "./route/get-register.js";
-import postRegister from "./route/post-register.js";
-import getLogin from "./route/get-login.js";
-import postLogin from "./route/post-login.js";
-import getLogout from "./route/get-logout.js";
-import deleteRoot from "./route/delete-root.js";
-import postRoot from "./route/post-root.js";
-import getRoot from "./route/get-root.js";
+import csp from "./route/csp.ts";
+import logTraffic from "./route/log-traffic.ts";
+import getIpInfo from "./lib/get-ip-info.ts";
+import getRegister from "./route/get-register.ts";
+import postRegister from "./route/post-register.ts";
+import getLogin from "./route/get-login.ts";
+import postLogin from "./route/post-login.ts";
+import getLogout from "./route/get-logout.ts";
+import deleteRoot from "./route/delete-root.ts";
+import postRoot from "./route/post-root.ts";
+import getRoot from "./route/get-root.ts";
 
 process.loadEnvFile();
 const {
