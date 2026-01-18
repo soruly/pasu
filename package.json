@@ -2,7 +2,7 @@
   "name": "pasu",
   "version": "1.0.0",
   "description": "Self-hosted TOTP authenticator PWA with FIDO2 (WebAuthn)",
-  "main": "server.js",
+  "main": "server.ts",
   "type": "module",
   "scripts": {
     "start": "pm2 start ecosystem.config.json",
@@ -12,9 +12,9 @@
     "reload": "pm2 reload ecosystem.config.json",
     "delete": "pm2 delete ecosystem.config.json",
     "prettier": "prettier",
-    "format": "prettier --write \"**/*.js\"",
-    "lint": "prettier --check \"**/*.js\"",
-    "test": "prettier --check \"**/*.js\""
+    "format": "prettier --write \"**/*.ts\"",
+    "lint": "prettier --check \"**/*.ts\"",
+    "test": "prettier --check \"**/*.ts\""
   },
   "repository": {
     "type": "git",
