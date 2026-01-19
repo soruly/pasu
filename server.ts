@@ -8,6 +8,7 @@ import { Fido2Lib } from "fido2-lib";
 import csp from "./route/csp.ts";
 import logTraffic from "./route/log-traffic.ts";
 import getIpInfo from "./lib/get-ip-info.ts";
+import getStaticIntegrity from "./lib/static-integrity.ts";
 import getRegister from "./route/get-register.ts";
 import postRegister from "./route/post-register.ts";
 import getLogin from "./route/get-login.ts";
@@ -42,6 +43,7 @@ app.set("trust proxy", ["loopback", "linklocal", "uniquelocal"]);
 app.set("view engine", "ejs");
 app.set("views", path.resolve("./view"));
 
+app.locals.integrity = await getStaticIntegrity();
 app.locals.f2l =
   ENABLE_FIDO2 &&
   new Fido2Lib({
