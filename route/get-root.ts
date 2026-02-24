@@ -1,4 +1,5 @@
 import fs from "node:fs/promises";
+
 import getOtp from "../lib/get-otp.ts";
 import isSessionValid from "../lib/is-session-valid.ts";
 

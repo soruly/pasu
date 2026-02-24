@@ -1,22 +1,23 @@
 import fs from "node:fs/promises";
 import path from "node:path";
+
+import cookieParser from "cookie-parser";
 import express from "express";
 import rateLimit from "express-rate-limit";
-import cookieParser from "cookie-parser";
 import { Fido2Lib } from "fido2-lib";
 
-import csp from "./route/csp.ts";
-import logTraffic from "./route/log-traffic.ts";
 import getIpInfo from "./lib/get-ip-info.ts";
 import getStaticIntegrity from "./lib/static-integrity.ts";
-import getRegister from "./route/get-register.ts";
-import postRegister from "./route/post-register.ts";
-import getLogin from "./route/get-login.ts";
-import postLogin from "./route/post-login.ts";
-import getLogout from "./route/get-logout.ts";
+import csp from "./route/csp.ts";
 import deleteRoot from "./route/delete-root.ts";
-import postRoot from "./route/post-root.ts";
+import getLogin from "./route/get-login.ts";
+import getLogout from "./route/get-logout.ts";
+import getRegister from "./route/get-register.ts";
 import getRoot from "./route/get-root.ts";
+import logTraffic from "./route/log-traffic.ts";
+import postLogin from "./route/post-login.ts";
+import postRegister from "./route/post-register.ts";
+import postRoot from "./route/post-root.ts";
 
 process.loadEnvFile();
 const {

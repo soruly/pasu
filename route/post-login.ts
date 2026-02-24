@@ -1,5 +1,5 @@
-import fs from "node:fs/promises";
 import crypto from "node:crypto";
+import fs from "node:fs/promises";
 
 export default async (req, res) => {
   const { SERVER_NAME, ENABLE_FIDO2 } = process.env;

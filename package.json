@@ -2,8 +2,18 @@
   "name": "pasu",
   "version": "1.0.0",
   "description": "Self-hosted TOTP authenticator PWA with FIDO2 (WebAuthn)",
-  "main": "server.ts",
+  "homepage": "https://github.com/soruly/pasu#readme",
+  "bugs": {
+    "url": "https://github.com/soruly/pasu/issues"
+  },
+  "license": "MIT",
+  "author": "soruly",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/soruly/pasu.git"
+  },
   "type": "module",
+  "main": "server.ts",
   "scripts": {
     "start": "pm2 start ecosystem.config.json",
     "watch": "pm2 start ecosystem.config.json --watch",
@@ -11,21 +21,11 @@
     "restart": "pm2 restart ecosystem.config.json",
     "reload": "pm2 reload ecosystem.config.json",
     "delete": "pm2 delete ecosystem.config.json",
-    "prettier": "prettier",
-    "format": "prettier --write \"**/*.ts\"",
-    "lint": "prettier --check \"**/*.ts\"",
-    "test": "prettier --check \"**/*.ts\""
+    "oxfmt": "oxfmt",
+    "format": "oxfmt --write \"**/*.*\"",
+    "lint": "oxfmt --check \"**/*.*\"",
+    "test": "oxfmt --check \"**/*.*\""
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/soruly/pasu.git"
-  },
-  "author": "soruly",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/soruly/pasu/issues"
-  },
-  "homepage": "https://github.com/soruly/pasu#readme",
   "dependencies": {
     "@maxmind/geoip2-node": "^6.3.4",
     "cookie-parser": "^1.4.7",
@@ -36,6 +36,6 @@
   },
   "devDependencies": {
     "@types/node": "^25.3.0",
-    "prettier": "^3.8.1"
+    "oxfmt": "^0.35.0"
   }
 }
