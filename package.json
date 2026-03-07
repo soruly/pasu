@@ -29,7 +29,7 @@
   "dependencies": {
     "@maxmind/geoip2-node": "^6.3.4",
     "cookie-parser": "^1.4.7",
-    "ejs": "^4.0.1",
+    "ejs": "^5.0.1",
     "express": "^5.2.1",
     "express-rate-limit": "^8.3.0",
     "fido2-lib": "^3.5.7"
