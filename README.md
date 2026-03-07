@@ -80,7 +80,8 @@ Put this file to `/etc/systemd/system/pasu.service`
 ```
 [Unit]
 Description=pasu
-After=network.target
+Wants=network-online.target
+After=network-online.target
 
 [Service]
 User=____
