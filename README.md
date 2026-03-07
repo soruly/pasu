@@ -31,8 +31,6 @@ https://user-images.githubusercontent.com/1979746/174453876-f4d81b10-bf43-41b9-b
 
 ## Getting Started
 
-Prerequisites: nodejs >= 22.18
-
 ```
 git clone https://github.com/soruly/pasu.git
 cd pasu
@@ -75,16 +73,23 @@ SERVER_NAME=localhost   # the app doesn't work without HTTPS, you need a valid h
 
 To register a new device with WebAuthn, turn on both `ENABLE_FIDO2` and `ALLOW_REGISTER`, then visit `https://your.server/reg` to continue. It is suggested you turn off ALLOW_REGISTER when not needed.
 
-### Run by pm2
+### Run as systemd
 
-You also can use [pm2](https://pm2.keymetrics.io/) to run this in background.
-
-Use below commands to start / restart / stop server.
+Put this file to `/etc/systemd/system/pasu.service`
 
 ```
-npm run start
-npm run stop
-npm run reload
-npm run restart
-npm run delete
+[Unit]
+Description=pasu
+After=network.target
+
+[Service]
+User=____
+Group=____
+WorkingDirectory=/home/____/project/pasu
+Environment=NODE_ENV=production
+ExecStart=/usr/bin/node /home/____/project/pasu/server.ts
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
 ```

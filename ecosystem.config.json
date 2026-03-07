@@ -1,9 +1,0 @@
-{
-  "apps": [
-    {
-      "name": "pasu",
-      "interpreter": "node",
-      "script": "server.ts"
-    }
-  ]
-}
