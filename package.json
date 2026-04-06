@@ -30,7 +30,7 @@
     "fido2-lib": "^3.5.9"
   },
   "devDependencies": {
-    "@types/node": "^25.5.0",
+    "@types/node": "^25.5.2",
     "oxfmt": "^0.43.0"
   }
 }
