@@ -24,13 +24,13 @@
   "dependencies": {
     "@maxmind/geoip2-node": "^6.3.4",
     "cookie-parser": "^1.4.7",
-    "ejs": "^5.0.2",
+    "ejs": "^6.0.1",
     "express": "^5.2.1",
     "express-rate-limit": "^8.5.2",
     "fido2-lib": "^3.5.9"
   },
   "devDependencies": {
-    "@types/node": "^25.8.0",
-    "oxfmt": "^0.51.0"
+    "@types/node": "^25.9.3",
+    "oxfmt": "^0.54.0"
   }
 }
