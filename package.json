@@ -26,11 +26,11 @@
     "cookie-parser": "^1.4.7",
     "ejs": "^6.0.1",
     "express": "^5.2.1",
-    "express-rate-limit": "^8.6.0",
+    "express-rate-limit": "^8.6.1",
     "fido2-lib": "^3.5.9"
   },
   "devDependencies": {
-    "@types/node": "^26.1.1",
-    "oxfmt": "^0.59.0"
+    "@types/node": "^26.1.2",
+    "oxfmt": "^0.61.0"
   }
 }
