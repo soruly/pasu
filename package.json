@@ -31,7 +31,7 @@
   },
   "devDependencies": {
     "@types/node": "^26.4.1",
-    "oxfmt": "^0.66.0"
+    "oxfmt": "^0.70.0"
   },
   "allowScripts": {
     "cbor-extract@2.2.2": true
