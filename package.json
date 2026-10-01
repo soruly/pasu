@@ -30,8 +30,8 @@
     "fido2-lib": "^3.5.9"
   },
   "devDependencies": {
-    "@types/node": "^26.4.1",
-    "oxfmt": "^0.66.0"
+    "@types/node": "^26.6.3",
+    "oxfmt": "^0.71.0"
   },
   "allowScripts": {
     "cbor-extract@2.2.2": true
