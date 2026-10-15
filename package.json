@@ -25,7 +25,7 @@
     "@maxmind/geoip2-node": "^7.1.0",
     "cookie-parser": "^1.4.7",
     "ejs": "^7.0.1",
-    "express": "^5.2.1",
+    "express": "^5.3.0",
     "express-rate-limit": "^8.7.1",
     "fido2-lib": "^4.0.0"
   },
